@@ -1,0 +1,29 @@
+{
+  "name": "cubetimer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "crypto": "^1.0.1",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "sass": "^1.77.8",
+    "sass-loader": "^15.0.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "node": "^20.16.0",
+    "nodemon": "^3.1.4",
+    "scramble-display": "^0.5.5",
+    "scrambow": "^1.8.1",
+    "uuid": "^10.0.0"
+  }
+}
