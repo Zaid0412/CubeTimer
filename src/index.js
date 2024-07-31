@@ -19,6 +19,7 @@ import algsetIcon from './imgs/algset-icon.png'
 
 const body = document.querySelector('body')
 const ScrambleDisplay = document.querySelector('scramble-display')
+const pzlOptions = document.querySelectorAll('.menu li')
 
 let timer_Icon = document.querySelector('.timer-icon')
 let allSolves_Icon = document.querySelector('.solves-icon')
@@ -32,14 +33,13 @@ settings_Icon.src = settingsIcon
 
 
 
-
 // let allSolves = []
 let allSolves = JSON.parse(localStorage.getItem("allSolvesStorage"))
   ? JSON.parse(localStorage.getItem("allSolvesStorage"))
   : [{'222': []},{'333':[]}, {'444': []}, {'555': []}, {'666' : []}, {'777' : []}];
 
 
-const saveSolvesToStorage = () => { 
+export const saveSolvesToStorage = () => { 
     localStorage.clear()
     localStorage.setItem('allSolvesStorage', JSON.stringify(allSolves))
 }
@@ -115,11 +115,44 @@ const deleteAllSolves = () => {
    
    saveSolvesToStorage()
 }
-
+ 
 let type = '333'
+
+const getCurPzlType = () =>{
+    let curPzl = document.querySelector('.select-active').textContent
+
+    switch (curPzl) {
+        case '2x2':
+            type = '222'
+            break;
+        case '3x3':
+            type = '333'
+            break;    
+        case '4x4':
+            type = '444'
+            break;  
+        case '5x5':
+            type = '555'
+        break;         
+        case '6x6':
+            type = '666'
+        break;  
+        case '7x7':
+            type = '777'
+        break;  
+    }
+    
+}
+
 let keyDown = false
 let isTimerRunning = false
 
+pzlOptions.forEach(option => {
+    option.addEventListener('click', (e) => {
+        getCurPzlType()
+        displayScramble(getScramble(type))
+    })
+})
 
 
 // Load Timer
@@ -165,7 +198,7 @@ body.addEventListener('keydown', (event) => {
         allSolves[0]['222'].push(new Solve(stopTimer(), scrambleTxt.textContent, '222'))
                 break;
             case '333':
-        allSolves[1]['333'].push(new Solve(stopTimer(), scrambleTxt.textContent))
+        allSolves[1]['333'].push(new Solve(stopTimer(), scrambleTxt.textContent, '333'))
                 break;
         case '444':
         allSolves[2]['444'].push(new Solve(stopTimer(), scrambleTxt.textContent, '444'))
@@ -189,7 +222,7 @@ body.addEventListener('keydown', (event) => {
         ScrambleDisplay.classList.remove('timerStart')
 
         // Generate a new scramble and display it
-        displayScramble(getScramble())
+        displayScramble(getScramble(type))
 
         setInterval(() => {
             isTimerRunning = false

@@ -1,8 +1,9 @@
 const body = document.body
 
 import { ScrambleDisplay } from "scramble-display";
-import { findSolveIndex, findSolve, deleteSolve } from "..";
+import { findSolveIndex, findSolve, deleteSolve, saveSolvesToStorage} from "..";
 import { Solve, isPlus2, isDNF } from "../Components/Solve";
+import { createDropdown } from "../Components/Dropdown";
 
 import closeIcon from '../imgs/close-icon.png'
 
@@ -19,29 +20,36 @@ const displaySolves = (solveType) => {
 
   if (allSolves && document.querySelector('.solves')) {
   let solveDisplayTxt;
+  let solveIndex;
     switch (solveType) {
         case '222':
             solveDisplayTxt = '2x2'
+            solveIndex = 0
             break;
         case '333':
             solveDisplayTxt = '3x3'
+            solveIndex = 1;
             break;    
         case '444':
             solveDisplayTxt = '4x4'
+            solveIndex = 2;
             break;  
         case '555':
             solveDisplayTxt = '5x5'
+            solveIndex = 3;
         break;         
         case '666':
             solveDisplayTxt = '6x6'
+            solveIndex = 4;
         break;  
         case '777':
             solveDisplayTxt = '7x7'
+            solveIndex = 5;
         break;  
     }  
 
 
-    allSolves[1]['333'].forEach(solve => {
+    allSolves[solveIndex][solveType].forEach(solve => {
     let [solveDisplayDate, yearAndTime] = solve.date.split(',')
     let [_ ,year, time] = yearAndTime.split(' ')
 
@@ -125,7 +133,9 @@ const createSolvesPage = () => {
 
     let html = `
      <div class="top solvespage">
-        <div class="top-nav"></div>
+        <div class="top-nav">
+     
+        </div>
         <div class="main">
             <div class="solves">
             </div>
@@ -135,6 +145,7 @@ const createSolvesPage = () => {
 
    body.insertAdjacentHTML('afterbegin', html)
    document.querySelector('.solves-icon').classList.add('active')
+   createDropdown()
 
     displaySolves('333')
 
@@ -155,6 +166,7 @@ const createSolvesPage = () => {
             body.addEventListener('click', (e) => {
                 if(e.target.classList.contains('close-icon')){
                     infoModal.close()
+                    saveSolvesToStorage()
                 }
                 if (e.target.textContent === 'DNF') {
                     if(!solve_.DNF){

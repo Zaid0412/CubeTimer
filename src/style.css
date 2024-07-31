@@ -38,6 +38,13 @@ body.light .icon{
 
 .top{
     width: 100%;
+
+}
+
+.top.timerpage .top-nav{
+    display: flex;
+    align-items: center;
+    height: 11vh;
 }
 
  /* Timer Page */
@@ -51,13 +58,23 @@ body.light .icon{
     grid-template-rows: repeat(15, 1fr);
 }
 
+.top.timerpage .top-nav .dropdown{
+    width: fit-content;
+}
+
 .main{
     grid-row: 2/12;
-    grid-column: 1/16;
+    grid-column: 1/20;
+    padding: 3em;
 
     display: flex;
     align-items: flex-end;
     justify-content: center;
+}
+
+.avgs{
+    grid-row: 12/17;
+    grid-column: 1/20;
 }
 
 .aside{
@@ -120,13 +137,24 @@ scramble-display{
  /* Solves Page */
 .top.solvespage{
     box-sizing: border-box;
-    padding: 5rem;
+    /* padding: 5rem; */
     width: 93vw;
     height: 93vh;
     
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.top.solvespage .top-nav{
+    background-color: var(--primary-clr);
+    width: 100vw;
+    height: 11vh;
+    align-self: flex-start;
+    width: 100%;
+
+
 }
 
 .top.solvespage .main{  
@@ -165,6 +193,7 @@ scramble-display{
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px, rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
     transition: all 0.15s ease;
+    will-change: transform;
 }
 
 .solve:hover{
@@ -197,6 +226,9 @@ scramble-display{
     height: 80vh;
     border-radius: 15px;
     padding: 15px;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px,
+    rgba(204, 219, 232, 0.4) 3px 3px 6px 0px inset,
+    rgba(255, 255, 255, 0.3) -3px -3px 6px 1px inset;
 
     /* display: grid; */
     grid-template-rows: 1fr 1fr;   
@@ -343,6 +375,7 @@ dialog[open] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 11vh;
 }
 
 .top.algsetpage .top-nav h1{
@@ -421,14 +454,12 @@ dialog[open] {
 @keyframes expand {
     0% {
         opacity: 0;
+        transform: translate(1,0);
     }
-  
-    /* 70% {
-      transform: scaleY(1.1);
-    } */
     
     100% {
         opacity: 1;
+        transform: translate(1,1);
     }
   }
 
@@ -443,7 +474,9 @@ dialog[open] {
     background:#2a2d35;
 }
 
-body.dark .active{
+
+
+.select-active{
     background: #23242a;
 }
 
